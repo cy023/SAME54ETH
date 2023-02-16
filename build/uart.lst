@@ -1,0 +1,457 @@
+ARM GAS  C:\Users\cy023\AppData\Local\Temp\ccyALPiK.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 6
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"uart.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.uart0_init,"ax",%progbits
+  16              		.align	1
+  17              		.global	uart0_init
+  18              		.arch armv7e-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu softvfp
+  24              	uart0_init:
+  25              	.LFB130:
+  26              		.file 1 "Drivers/HAL/uart.c"
+   1:Drivers/HAL/uart.c **** /**
+   2:Drivers/HAL/uart.c ****  * @file uart.c
+   3:Drivers/HAL/uart.c ****  * @author cy023
+   4:Drivers/HAL/uart.c ****  * @date 2022.08.02
+   5:Drivers/HAL/uart.c ****  * @brief
+   6:Drivers/HAL/uart.c ****  */
+   7:Drivers/HAL/uart.c **** 
+   8:Drivers/HAL/uart.c **** #include "same54p20a.h"
+   9:Drivers/HAL/uart.c **** #include "uart.h"
+  10:Drivers/HAL/uart.c **** 
+  11:Drivers/HAL/uart.c **** void uart0_init(void)
+  12:Drivers/HAL/uart.c **** {
+  27              		.loc 1 12 1
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 1, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  32 0000 80B4     		push	{r7}
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 4
+  35              		.cfi_offset 7, -4
+  36 0002 00AF     		add	r7, sp, #0
+  37              	.LCFI1:
+  38              		.cfi_def_cfa_register 7
+  13:Drivers/HAL/uart.c ****     // pin multiplexer set
+  14:Drivers/HAL/uart.c ****     PORT_REGS->GROUP[0].PORT_PMUX[2] |= PORT_PMUX_PMUXE_D; // set PA4 as function D (SERCOM0)
+  39              		.loc 1 14 38
+  40 0004 344B     		ldr	r3, .L5
+  41 0006 93F83230 		ldrb	r3, [r3, #50]
+  42 000a DBB2     		uxtb	r3, r3
+  43 000c 324A     		ldr	r2, .L5
+  44 000e 43F00303 		orr	r3, r3, #3
+ARM GAS  C:\Users\cy023\AppData\Local\Temp\ccyALPiK.s 			page 2
+
+
+  45 0012 DBB2     		uxtb	r3, r3
+  46 0014 82F83230 		strb	r3, [r2, #50]
+  15:Drivers/HAL/uart.c ****     PORT_REGS->GROUP[0].PORT_PINCFG[4] |= PORT_PINCFG_PMUXEN(1); // set PA4 PMUXEN
+  47              		.loc 1 15 40
+  48 0018 2F4B     		ldr	r3, .L5
+  49 001a 93F84430 		ldrb	r3, [r3, #68]
+  50 001e DBB2     		uxtb	r3, r3
+  51 0020 2D4A     		ldr	r2, .L5
+  52 0022 43F00103 		orr	r3, r3, #1
+  53 0026 DBB2     		uxtb	r3, r3
+  54 0028 82F84430 		strb	r3, [r2, #68]
+  16:Drivers/HAL/uart.c ****     PORT_REGS->GROUP[0].PORT_PMUX[3] |= PORT_PMUX_PMUXE_D; // set PA6 as function D (SERCOM0)
+  55              		.loc 1 16 38
+  56 002c 2A4B     		ldr	r3, .L5
+  57 002e 93F83330 		ldrb	r3, [r3, #51]
+  58 0032 DBB2     		uxtb	r3, r3
+  59 0034 284A     		ldr	r2, .L5
+  60 0036 43F00303 		orr	r3, r3, #3
+  61 003a DBB2     		uxtb	r3, r3
+  62 003c 82F83330 		strb	r3, [r2, #51]
+  17:Drivers/HAL/uart.c ****     PORT_REGS->GROUP[0].PORT_PINCFG[6] |= PORT_PINCFG_PMUXEN(1); // set PA6 PMUXEN
+  63              		.loc 1 17 40
+  64 0040 254B     		ldr	r3, .L5
+  65 0042 93F84630 		ldrb	r3, [r3, #70]
+  66 0046 DBB2     		uxtb	r3, r3
+  67 0048 234A     		ldr	r2, .L5
+  68 004a 43F00103 		orr	r3, r3, #1
+  69 004e DBB2     		uxtb	r3, r3
+  70 0050 82F84630 		strb	r3, [r2, #70]
+  18:Drivers/HAL/uart.c **** 
+  19:Drivers/HAL/uart.c ****     // uart set
+  20:Drivers/HAL/uart.c ****     SERCOM0_REGS->USART_INT.SERCOM_CTRLA |= SERCOM_USART_INT_CTRLA_MODE_USART_INT_CLK;
+  71              		.loc 1 20 42
+  72 0054 214B     		ldr	r3, .L5+4
+  73 0056 1B68     		ldr	r3, [r3]
+  74 0058 204A     		ldr	r2, .L5+4
+  75 005a 43F00403 		orr	r3, r3, #4
+  76 005e 1360     		str	r3, [r2]
+  21:Drivers/HAL/uart.c ****     SERCOM0_REGS->USART_INT.SERCOM_CTRLA |= SERCOM_USART_INT_CTRLA_RXPO_PAD2;
+  77              		.loc 1 21 42
+  78 0060 1E4B     		ldr	r3, .L5+4
+  79 0062 1B68     		ldr	r3, [r3]
+  80 0064 1D4A     		ldr	r2, .L5+4
+  81 0066 43F40013 		orr	r3, r3, #2097152
+  82 006a 1360     		str	r3, [r2]
+  22:Drivers/HAL/uart.c ****     SERCOM0_REGS->USART_INT.SERCOM_CTRLA |= SERCOM_USART_INT_CTRLA_DORD_LSB;
+  83              		.loc 1 22 42
+  84 006c 1B4B     		ldr	r3, .L5+4
+  85 006e 1B68     		ldr	r3, [r3]
+  86 0070 1A4A     		ldr	r2, .L5+4
+  87 0072 43F08043 		orr	r3, r3, #1073741824
+  88 0076 1360     		str	r3, [r2]
+  23:Drivers/HAL/uart.c ****     SERCOM0_REGS->USART_INT.SERCOM_BAUD = 62180;
+  89              		.loc 1 23 17
+  90 0078 184B     		ldr	r3, .L5+4
+  91              		.loc 1 23 41
+  92 007a 4FF2E422 		movw	r2, #62180
+ARM GAS  C:\Users\cy023\AppData\Local\Temp\ccyALPiK.s 			page 3
+
+
+  93 007e 9A81     		strh	r2, [r3, #12]	@ movhi
+  24:Drivers/HAL/uart.c **** 
+  25:Drivers/HAL/uart.c ****     SERCOM0_REGS->USART_INT.SERCOM_CTRLB |= SERCOM_USART_INT_CTRLB_TXEN(1);
+  94              		.loc 1 25 42
+  95 0080 164B     		ldr	r3, .L5+4
+  96 0082 5B68     		ldr	r3, [r3, #4]
+  97 0084 154A     		ldr	r2, .L5+4
+  98 0086 43F48033 		orr	r3, r3, #65536
+  99 008a 5360     		str	r3, [r2, #4]
+  26:Drivers/HAL/uart.c ****     while (SERCOM0_REGS->USART_INT.SERCOM_SYNCBUSY & SERCOM_USART_INT_SYNCBUSY_CTRLB_Msk);
+ 100              		.loc 1 26 11
+ 101 008c 00BF     		nop
+ 102              	.L2:
+ 103              		.loc 1 26 24 discriminator 1
+ 104 008e 134B     		ldr	r3, .L5+4
+ 105              		.loc 1 26 35 discriminator 1
+ 106 0090 DB69     		ldr	r3, [r3, #28]
+ 107              		.loc 1 26 52 discriminator 1
+ 108 0092 03F00403 		and	r3, r3, #4
+ 109              		.loc 1 26 11 discriminator 1
+ 110 0096 002B     		cmp	r3, #0
+ 111 0098 F9D1     		bne	.L2
+  27:Drivers/HAL/uart.c ****     SERCOM0_REGS->USART_INT.SERCOM_CTRLB |= SERCOM_USART_INT_CTRLB_RXEN(1);
+ 112              		.loc 1 27 42
+ 113 009a 104B     		ldr	r3, .L5+4
+ 114 009c 5B68     		ldr	r3, [r3, #4]
+ 115 009e 0F4A     		ldr	r2, .L5+4
+ 116 00a0 43F40033 		orr	r3, r3, #131072
+ 117 00a4 5360     		str	r3, [r2, #4]
+  28:Drivers/HAL/uart.c ****     while (SERCOM0_REGS->USART_INT.SERCOM_SYNCBUSY & SERCOM_USART_INT_SYNCBUSY_CTRLB_Msk);
+ 118              		.loc 1 28 11
+ 119 00a6 00BF     		nop
+ 120              	.L3:
+ 121              		.loc 1 28 24 discriminator 1
+ 122 00a8 0C4B     		ldr	r3, .L5+4
+ 123              		.loc 1 28 35 discriminator 1
+ 124 00aa DB69     		ldr	r3, [r3, #28]
+ 125              		.loc 1 28 52 discriminator 1
+ 126 00ac 03F00403 		and	r3, r3, #4
+ 127              		.loc 1 28 11 discriminator 1
+ 128 00b0 002B     		cmp	r3, #0
+ 129 00b2 F9D1     		bne	.L3
+  29:Drivers/HAL/uart.c **** 
+  30:Drivers/HAL/uart.c ****     SERCOM0_REGS->USART_INT.SERCOM_CTRLA |= SERCOM_USART_INT_CTRLA_ENABLE(1);
+ 130              		.loc 1 30 42
+ 131 00b4 094B     		ldr	r3, .L5+4
+ 132 00b6 1B68     		ldr	r3, [r3]
+ 133 00b8 084A     		ldr	r2, .L5+4
+ 134 00ba 43F00203 		orr	r3, r3, #2
+ 135 00be 1360     		str	r3, [r2]
+  31:Drivers/HAL/uart.c ****     while (SERCOM0_REGS->USART_INT.SERCOM_SYNCBUSY & SERCOM_USART_INT_SYNCBUSY_ENABLE_Msk);
+ 136              		.loc 1 31 11
+ 137 00c0 00BF     		nop
+ 138              	.L4:
+ 139              		.loc 1 31 24 discriminator 1
+ 140 00c2 064B     		ldr	r3, .L5+4
+ 141              		.loc 1 31 35 discriminator 1
+ARM GAS  C:\Users\cy023\AppData\Local\Temp\ccyALPiK.s 			page 4
+
+
+ 142 00c4 DB69     		ldr	r3, [r3, #28]
+ 143              		.loc 1 31 52 discriminator 1
+ 144 00c6 03F00203 		and	r3, r3, #2
+ 145              		.loc 1 31 11 discriminator 1
+ 146 00ca 002B     		cmp	r3, #0
+ 147 00cc F9D1     		bne	.L4
+  32:Drivers/HAL/uart.c **** }
+ 148              		.loc 1 32 1
+ 149 00ce 00BF     		nop
+ 150 00d0 00BF     		nop
+ 151 00d2 BD46     		mov	sp, r7
+ 152              	.LCFI2:
+ 153              		.cfi_def_cfa_register 13
+ 154              		@ sp needed
+ 155 00d4 80BC     		pop	{r7}
+ 156              	.LCFI3:
+ 157              		.cfi_restore 7
+ 158              		.cfi_def_cfa_offset 0
+ 159 00d6 7047     		bx	lr
+ 160              	.L6:
+ 161              		.align	2
+ 162              	.L5:
+ 163 00d8 00800041 		.word	1090551808
+ 164 00dc 00300040 		.word	1073754112
+ 165              		.cfi_endproc
+ 166              	.LFE130:
+ 168              		.section	.text.uart0_deinit,"ax",%progbits
+ 169              		.align	1
+ 170              		.global	uart0_deinit
+ 171              		.syntax unified
+ 172              		.thumb
+ 173              		.thumb_func
+ 174              		.fpu softvfp
+ 176              	uart0_deinit:
+ 177              	.LFB131:
+  33:Drivers/HAL/uart.c **** 
+  34:Drivers/HAL/uart.c **** void uart0_deinit(void)
+  35:Drivers/HAL/uart.c **** {
+ 178              		.loc 1 35 1
+ 179              		.cfi_startproc
+ 180              		@ args = 0, pretend = 0, frame = 0
+ 181              		@ frame_needed = 1, uses_anonymous_args = 0
+ 182              		@ link register save eliminated.
+ 183 0000 80B4     		push	{r7}
+ 184              	.LCFI4:
+ 185              		.cfi_def_cfa_offset 4
+ 186              		.cfi_offset 7, -4
+ 187 0002 00AF     		add	r7, sp, #0
+ 188              	.LCFI5:
+ 189              		.cfi_def_cfa_register 7
+  36:Drivers/HAL/uart.c ****     // uart reset
+  37:Drivers/HAL/uart.c ****     SERCOM0_REGS->USART_INT.SERCOM_CTRLA |= SERCOM_USART_INT_CTRLA_SWRST(1);
+ 190              		.loc 1 37 42
+ 191 0004 084B     		ldr	r3, .L9
+ 192 0006 1B68     		ldr	r3, [r3]
+ 193 0008 074A     		ldr	r2, .L9
+ 194 000a 43F00103 		orr	r3, r3, #1
+ARM GAS  C:\Users\cy023\AppData\Local\Temp\ccyALPiK.s 			page 5
+
+
+ 195 000e 1360     		str	r3, [r2]
+  38:Drivers/HAL/uart.c ****     while (SERCOM0_REGS->USART_INT.SERCOM_SYNCBUSY & SERCOM_USART_INT_SYNCBUSY_SWRST_Msk);
+ 196              		.loc 1 38 11
+ 197 0010 00BF     		nop
+ 198              	.L8:
+ 199              		.loc 1 38 24 discriminator 1
+ 200 0012 054B     		ldr	r3, .L9
+ 201              		.loc 1 38 35 discriminator 1
+ 202 0014 DB69     		ldr	r3, [r3, #28]
+ 203              		.loc 1 38 52 discriminator 1
+ 204 0016 03F00103 		and	r3, r3, #1
+ 205              		.loc 1 38 11 discriminator 1
+ 206 001a 002B     		cmp	r3, #0
+ 207 001c F9D1     		bne	.L8
+  39:Drivers/HAL/uart.c **** }
+ 208              		.loc 1 39 1
+ 209 001e 00BF     		nop
+ 210 0020 00BF     		nop
+ 211 0022 BD46     		mov	sp, r7
+ 212              	.LCFI6:
+ 213              		.cfi_def_cfa_register 13
+ 214              		@ sp needed
+ 215 0024 80BC     		pop	{r7}
+ 216              	.LCFI7:
+ 217              		.cfi_restore 7
+ 218              		.cfi_def_cfa_offset 0
+ 219 0026 7047     		bx	lr
+ 220              	.L10:
+ 221              		.align	2
+ 222              	.L9:
+ 223 0028 00300040 		.word	1073754112
+ 224              		.cfi_endproc
+ 225              	.LFE131:
+ 227              		.section	.text.uart0_putc,"ax",%progbits
+ 228              		.align	1
+ 229              		.global	uart0_putc
+ 230              		.syntax unified
+ 231              		.thumb
+ 232              		.thumb_func
+ 233              		.fpu softvfp
+ 235              	uart0_putc:
+ 236              	.LFB132:
+  40:Drivers/HAL/uart.c **** 
+  41:Drivers/HAL/uart.c **** void uart0_putc(char c)
+  42:Drivers/HAL/uart.c **** {
+ 237              		.loc 1 42 1
+ 238              		.cfi_startproc
+ 239              		@ args = 0, pretend = 0, frame = 8
+ 240              		@ frame_needed = 1, uses_anonymous_args = 0
+ 241              		@ link register save eliminated.
+ 242 0000 80B4     		push	{r7}
+ 243              	.LCFI8:
+ 244              		.cfi_def_cfa_offset 4
+ 245              		.cfi_offset 7, -4
+ 246 0002 83B0     		sub	sp, sp, #12
+ 247              	.LCFI9:
+ 248              		.cfi_def_cfa_offset 16
+ARM GAS  C:\Users\cy023\AppData\Local\Temp\ccyALPiK.s 			page 6
+
+
+ 249 0004 00AF     		add	r7, sp, #0
+ 250              	.LCFI10:
+ 251              		.cfi_def_cfa_register 7
+ 252 0006 0346     		mov	r3, r0
+ 253 0008 FB71     		strb	r3, [r7, #7]
+  43:Drivers/HAL/uart.c ****     while (!(SERCOM0_REGS->USART_INT.SERCOM_INTFLAG & SERCOM_USART_INT_INTFLAG_DRE_Msk));
+ 254              		.loc 1 43 11
+ 255 000a 00BF     		nop
+ 256              	.L12:
+ 257              		.loc 1 43 26 discriminator 1
+ 258 000c 0B4B     		ldr	r3, .L14
+ 259              		.loc 1 43 37 discriminator 1
+ 260 000e 1B7E     		ldrb	r3, [r3, #24]
+ 261 0010 DBB2     		uxtb	r3, r3
+ 262              		.loc 1 43 53 discriminator 1
+ 263 0012 03F00103 		and	r3, r3, #1
+ 264              		.loc 1 43 11 discriminator 1
+ 265 0016 002B     		cmp	r3, #0
+ 266 0018 F8D0     		beq	.L12
+  44:Drivers/HAL/uart.c ****     SERCOM0_REGS->USART_INT.SERCOM_DATA = c;
+ 267              		.loc 1 44 17
+ 268 001a 084A     		ldr	r2, .L14
+ 269              		.loc 1 44 41
+ 270 001c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 271 001e 9362     		str	r3, [r2, #40]
+  45:Drivers/HAL/uart.c ****     while (!(SERCOM0_REGS->USART_INT.SERCOM_INTFLAG & SERCOM_USART_INT_INTFLAG_TXC_Msk));
+ 272              		.loc 1 45 11
+ 273 0020 00BF     		nop
+ 274              	.L13:
+ 275              		.loc 1 45 26 discriminator 1
+ 276 0022 064B     		ldr	r3, .L14
+ 277              		.loc 1 45 37 discriminator 1
+ 278 0024 1B7E     		ldrb	r3, [r3, #24]
+ 279 0026 DBB2     		uxtb	r3, r3
+ 280              		.loc 1 45 53 discriminator 1
+ 281 0028 03F00203 		and	r3, r3, #2
+ 282              		.loc 1 45 11 discriminator 1
+ 283 002c 002B     		cmp	r3, #0
+ 284 002e F8D0     		beq	.L13
+  46:Drivers/HAL/uart.c **** }
+ 285              		.loc 1 46 1
+ 286 0030 00BF     		nop
+ 287 0032 00BF     		nop
+ 288 0034 0C37     		adds	r7, r7, #12
+ 289              	.LCFI11:
+ 290              		.cfi_def_cfa_offset 4
+ 291 0036 BD46     		mov	sp, r7
+ 292              	.LCFI12:
+ 293              		.cfi_def_cfa_register 13
+ 294              		@ sp needed
+ 295 0038 80BC     		pop	{r7}
+ 296              	.LCFI13:
+ 297              		.cfi_restore 7
+ 298              		.cfi_def_cfa_offset 0
+ 299 003a 7047     		bx	lr
+ 300              	.L15:
+ 301              		.align	2
+ARM GAS  C:\Users\cy023\AppData\Local\Temp\ccyALPiK.s 			page 7
+
+
+ 302              	.L14:
+ 303 003c 00300040 		.word	1073754112
+ 304              		.cfi_endproc
+ 305              	.LFE132:
+ 307              		.section	.text.uart0_getc,"ax",%progbits
+ 308              		.align	1
+ 309              		.global	uart0_getc
+ 310              		.syntax unified
+ 311              		.thumb
+ 312              		.thumb_func
+ 313              		.fpu softvfp
+ 315              	uart0_getc:
+ 316              	.LFB133:
+  47:Drivers/HAL/uart.c **** 
+  48:Drivers/HAL/uart.c **** char uart0_getc(void)
+  49:Drivers/HAL/uart.c **** {
+ 317              		.loc 1 49 1
+ 318              		.cfi_startproc
+ 319              		@ args = 0, pretend = 0, frame = 0
+ 320              		@ frame_needed = 1, uses_anonymous_args = 0
+ 321              		@ link register save eliminated.
+ 322 0000 80B4     		push	{r7}
+ 323              	.LCFI14:
+ 324              		.cfi_def_cfa_offset 4
+ 325              		.cfi_offset 7, -4
+ 326 0002 00AF     		add	r7, sp, #0
+ 327              	.LCFI15:
+ 328              		.cfi_def_cfa_register 7
+  50:Drivers/HAL/uart.c ****     while (!(SERCOM0_REGS->USART_INT.SERCOM_INTFLAG & SERCOM_USART_INT_INTFLAG_RXC_Msk));
+ 329              		.loc 1 50 11
+ 330 0004 00BF     		nop
+ 331              	.L17:
+ 332              		.loc 1 50 26 discriminator 1
+ 333 0006 074B     		ldr	r3, .L19
+ 334              		.loc 1 50 37 discriminator 1
+ 335 0008 1B7E     		ldrb	r3, [r3, #24]
+ 336 000a DBB2     		uxtb	r3, r3
+ 337              		.loc 1 50 53 discriminator 1
+ 338 000c 03F00403 		and	r3, r3, #4
+ 339              		.loc 1 50 11 discriminator 1
+ 340 0010 002B     		cmp	r3, #0
+ 341 0012 F8D0     		beq	.L17
+  51:Drivers/HAL/uart.c ****     return SERCOM0_REGS->USART_INT.SERCOM_DATA;
+ 342              		.loc 1 51 24
+ 343 0014 034B     		ldr	r3, .L19
+ 344              		.loc 1 51 35
+ 345 0016 9B6A     		ldr	r3, [r3, #40]
+ 346 0018 DBB2     		uxtb	r3, r3
+  52:Drivers/HAL/uart.c **** }
+ 347              		.loc 1 52 1
+ 348 001a 1846     		mov	r0, r3
+ 349 001c BD46     		mov	sp, r7
+ 350              	.LCFI16:
+ 351              		.cfi_def_cfa_register 13
+ 352              		@ sp needed
+ 353 001e 80BC     		pop	{r7}
+ 354              	.LCFI17:
+ARM GAS  C:\Users\cy023\AppData\Local\Temp\ccyALPiK.s 			page 8
+
+
+ 355              		.cfi_restore 7
+ 356              		.cfi_def_cfa_offset 0
+ 357 0020 7047     		bx	lr
+ 358              	.L20:
+ 359 0022 00BF     		.align	2
+ 360              	.L19:
+ 361 0024 00300040 		.word	1073754112
+ 362              		.cfi_endproc
+ 363              	.LFE133:
+ 365              		.text
+ 366              	.Letext0:
+ 367              		.file 2 "d:\\program files\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\include\\
+ 368              		.file 3 "d:\\program files\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\include\\
+ 369              		.file 4 "Drivers/SAME54_DFP/component/port.h"
+ 370              		.file 5 "Drivers/SAME54_DFP/component/sercom.h"
+ARM GAS  C:\Users\cy023\AppData\Local\Temp\ccyALPiK.s 			page 9
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 uart.c
+C:\Users\cy023\AppData\Local\Temp\ccyALPiK.s:16     .text.uart0_init:00000000 $t
+C:\Users\cy023\AppData\Local\Temp\ccyALPiK.s:24     .text.uart0_init:00000000 uart0_init
+C:\Users\cy023\AppData\Local\Temp\ccyALPiK.s:163    .text.uart0_init:000000d8 $d
+C:\Users\cy023\AppData\Local\Temp\ccyALPiK.s:169    .text.uart0_deinit:00000000 $t
+C:\Users\cy023\AppData\Local\Temp\ccyALPiK.s:176    .text.uart0_deinit:00000000 uart0_deinit
+C:\Users\cy023\AppData\Local\Temp\ccyALPiK.s:223    .text.uart0_deinit:00000028 $d
+C:\Users\cy023\AppData\Local\Temp\ccyALPiK.s:228    .text.uart0_putc:00000000 $t
+C:\Users\cy023\AppData\Local\Temp\ccyALPiK.s:235    .text.uart0_putc:00000000 uart0_putc
+C:\Users\cy023\AppData\Local\Temp\ccyALPiK.s:303    .text.uart0_putc:0000003c $d
+C:\Users\cy023\AppData\Local\Temp\ccyALPiK.s:308    .text.uart0_getc:00000000 $t
+C:\Users\cy023\AppData\Local\Temp\ccyALPiK.s:315    .text.uart0_getc:00000000 uart0_getc
+C:\Users\cy023\AppData\Local\Temp\ccyALPiK.s:361    .text.uart0_getc:00000024 $d
+
+NO UNDEFINED SYMBOLS
