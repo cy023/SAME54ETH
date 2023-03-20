@@ -28,7 +28,6 @@
  */
 
 #include "same54p20a.h"
-#define STACK_SIZE 0x1000
 
 /* Initialize segments */
 extern uint32_t _sfixed;
@@ -406,9 +405,6 @@ void Reset_Handler(void)
         if (_on_bootstrap) {
                 _on_bootstrap();
         }
-
-        PORT_REGS->GROUP[0].PORT_PMUX[1] = PORT_PMUX_PMUXO_B; // PA3 config as VREFA
-        PORT_REGS->GROUP[0].PORT_PINCFG[3] = PORT_PINCFG_PMUXEN(1);
 
         /* Branch to main function */
         main();

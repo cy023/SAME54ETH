@@ -8,8 +8,6 @@
 
 #include <stdio.h>
 #include "system.h"
-#include "systick.h"
-#include "delay.h"
 #include "uart.h"
 
 int main()
